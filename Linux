@@ -1,0 +1,66 @@
+commands
+//change insecure passwd
+Sudo passwd orvus This$hould3e$eCure!
+
+// Lock root passwd
+Sudo passwd -l root
+
+//remove unathorized user
+sudo Deluser odestruct
+
+//updates
+security updates - settings check for security updates, update.
+Detect updates daily - settings check for updates daily.
+firefox update - Should update with security updates
+
+// change banner incase it matters
+sudo gedit /etc/ssh/sshd_config
+#banner -> banner
+sudo gedit /etc/issue.net
+"This computer is authroized only for work use"
+
+
+// delete file passed as parameter if it exists
+delfile () {
+	[[ -f "$1" ]] && rm "$1
+  
+ // systemctl stop and disable a service
+ctlStop () {
+	if (systemctl status $1 >/dev/null); then
+		systemctl stop "$1"
+		systemctl disable "$1"
+  if
+}
+
+  
+ // check to see if all the users are allowed
+for user in $users; do
+   echo $user
+   if !(echo "${authorizedUsers[@]} ${authorizedAdmins[@]}" | grep -q "$user"); then
+     echo "$user not found in authorized users"
+     [[ $(read -p "Enter y to delete him") -eq "y" ]] && deluser "$user" || echo "Didn't delete $user"
+   if
+   }
+done
+
+//Remove users from sudo group
+for user in $(grep sudo /etc/group | cut -d":" -f4 | sed 's/,/ /g'); do
+	grep -q $user admins.txt || gpasswd -d $user sudo
+done
+
+//sshd Root login disable
+sed -i 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
+
+// remove crons
+delfile "/etc/cron.d/john"
+delfile "/etc/cron.daily/cracklib-runtime"
+
+// remove apps
+delfile "/usr/sbin/update-cracklib"
+delfile "/bin/netcat"
+delfile "/usr/sbin/john"
+delfile "/bin/nc"
+
+// set default to firefox
+for home in /home/*; do sudo cp ~/.config/mimeapps.list $home/.config/mimeapps.list; done
+

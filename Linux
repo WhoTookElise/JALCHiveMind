@@ -64,3 +64,4 @@ delfile "/bin/nc"
 // set default to firefox
 for home in /home/*; do sudo cp ~/.config/mimeapps.list $home/.config/mimeapps.list; done
 
+https://media.discordapp.net/attachments/754385540656136349/765752185710444564/unknown.png
